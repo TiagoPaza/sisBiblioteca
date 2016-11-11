@@ -19,21 +19,22 @@ import javax.swing.table.DefaultTableModel;
  * @author -Tiago
  */
 public class sisCompra extends javax.swing.JFrame {
-private DefaultTableModel  dadosComp, dadosEmpr;
-private String[][] Dados = {};
-private String[] Info1 = {"ID", "Título","Autor", "Estado"};
-private String[] Info2 = {"Código Estudante", "ID", "Título", "Data de Entrega"};
+private final DefaultTableModel  dadosComp, dadosEmpr;
+private final String[][] Dados = {};
+private final String[] Info1 = {"ID", "Título","Autor", "Estado"};
+private final String[] Info2;
 int disp = 0;
 
     public sisCompra() {
+        this.Info2 = new String[]{"Código Estudante", "ID", "Título", "Data de Entrega"};
         initComponents();
-        
-        campoSub.setVisible(false);
+        subLivro.setVisible(false);
         setExtendedState(MAXIMIZED_BOTH);
+        
         Date diaAtual = new Date();
         SimpleDateFormat formata = new SimpleDateFormat("dd/MM/yyyy");
-        String data = formata.format(diaAtual);
-        date.setText(data);
+        String inf = formata.format(diaAtual);
+        data.setText(inf);
         
         dadosComp = new DefaultTableModel(Dados, Info1);
         tabla.setModel(dadosComp);
@@ -43,40 +44,24 @@ int disp = 0;
         
         Tabla2.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
 
-            
-            
             @Override
             public void valueChanged(ListSelectionEvent lse) {
                 double sub = 0;
                 for(int i : Tabla2.getSelectedRows())
                     sub += Double.parseDouble((String) dadosEmpr.getValueAt(i, 2) ) * Double.parseDouble((String) dadosEmpr.getValueAt(i, 3) );
-                campoSub.setText(sub+"");
+                subLivro.setText(sub+"");
             }
         });
     }
 
     public void db(){
         
-        String aID = "01478";
-        String aTitulo = "Cien Años de Soledad";
-        String aAutor = "Gabriel Garcias Marquez";
-        String aPreco = "DISPONIVEL";
+        String aID = "1";
+        String aTitulo = "Harry Potter e a Pedra Filosofal";
+        String aAutor = "J.K Rowling";
+        String aPreco = "58,90";
         String aDados[] = {aID, aTitulo, aAutor, aPreco};
         dadosComp.addRow(aDados);
-        //-------------------------------------------------
-        String bID = "01269";
-        String bTitulo = "Don Quijote de la Mancha Part1";
-        String bAutor = "Miguel de Cervantes Saavedra";
-        String bPreco = "INDISPONIVEL";
-        String bDados[] = {bID, bTitulo, bAutor, bPreco};
-        dadosComp.addRow(bDados);
-        //---------------------------------------------------
-        String cID = "00514";
-        String cTitulo = "Don Quijote de la Mancha Part2";
-        String cAutor = "Miguel de Cervantes Saavedra";
-        String cPreco = "DISPONIVEL";
-        String cDados[] = {cID, cTitulo, cAutor, cPreco};
-        dadosComp.addRow(cDados);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -85,21 +70,20 @@ int disp = 0;
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
-        Comprar = new javax.swing.JButton();
-        Borrar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        AddBook = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        compLivro = new javax.swing.JButton();
+        cancLivro = new javax.swing.JButton();
+        exbLivro = new javax.swing.JButton();
+        titulo = new javax.swing.JLabel();
+        adcLivro = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         Tabla2 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        campoSub = new javax.swing.JTextField();
-        btnCalcular = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        campoTotal = new javax.swing.JTextField();
-        btnCalcular1 = new javax.swing.JButton();
+        subLiv = new javax.swing.JLabel();
+        subLivro = new javax.swing.JTextField();
+        calcTotal = new javax.swing.JButton();
+        valLiv = new javax.swing.JLabel();
+        valLivro = new javax.swing.JTextField();
+        data = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -111,17 +95,17 @@ int disp = 0;
         tabla.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Título", "Autor", "Preço"
+                "ID", "Título", "Autor", "Preço", "Disponibilidade"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -130,27 +114,27 @@ int disp = 0;
         });
         jScrollPane1.setViewportView(tabla);
 
-        Comprar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        Comprar.setText("Comprar livro");
-        Comprar.addActionListener(new java.awt.event.ActionListener() {
+        compLivro.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        compLivro.setText("Comprar livro");
+        compLivro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComprarActionPerformed(evt);
+                compLivroActionPerformed(evt);
             }
         });
 
-        Borrar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        Borrar.setText("Cancelar");
-        Borrar.addActionListener(new java.awt.event.ActionListener() {
+        cancLivro.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        cancLivro.setText("Cancelar");
+        cancLivro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BorrarActionPerformed(evt);
+                cancLivroActionPerformed(evt);
             }
         });
 
-        jButton1.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
-        jButton1.setText("Exibir livro");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        exbLivro.setFont(new java.awt.Font("sansserif", 0, 14)); // NOI18N
+        exbLivro.setText("Exibir livro");
+        exbLivro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                exbLivroActionPerformed(evt);
             }
         });
 
@@ -162,11 +146,11 @@ int disp = 0;
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(Borrar)
+                        .addComponent(cancLivro)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Comprar)
+                        .addComponent(compLivro)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(exbLivro))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
         );
@@ -176,22 +160,22 @@ int disp = 0;
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Comprar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
-                    .addComponent(Borrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(compLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(exbLivro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cancLivro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(7, 7, 7))
         );
 
-        jLabel3.setFont(new java.awt.Font("Capture Smallz", 0, 48)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(51, 51, 51));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Venda de livro");
+        titulo.setFont(new java.awt.Font("Capture Smallz", 0, 48)); // NOI18N
+        titulo.setForeground(new java.awt.Color(51, 51, 51));
+        titulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titulo.setText("Venda de livro");
 
-        AddBook.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        AddBook.setText("Adicionar livro");
-        AddBook.addActionListener(new java.awt.event.ActionListener() {
+        adcLivro.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        adcLivro.setText("Adicionar livro");
+        adcLivro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddBookActionPerformed(evt);
+                adcLivroActionPerformed(evt);
             }
         });
 
@@ -221,31 +205,28 @@ int disp = 0;
         });
         jScrollPane2.setViewportView(Tabla2);
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel1.setText("SubTotal do livro:");
+        subLiv.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        subLiv.setText("SubTotal do livro:");
 
-        campoSub.setEditable(false);
-
-        btnCalcular.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        btnCalcular.setText("Calcular total");
-        btnCalcular.addActionListener(new java.awt.event.ActionListener() {
+        subLivro.setEditable(false);
+        subLivro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCalcularActionPerformed(evt);
+                subLivroActionPerformed(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel2.setText("Valor dos livros:");
-
-        campoTotal.setEditable(false);
-
-        btnCalcular1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        btnCalcular1.setText("Sair");
-        btnCalcular1.addActionListener(new java.awt.event.ActionListener() {
+        calcTotal.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        calcTotal.setText("Calcular total");
+        calcTotal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCalcular1ActionPerformed(evt);
+                calcTotalActionPerformed(evt);
             }
         });
+
+        valLiv.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        valLiv.setText("Valor dos livros:");
+
+        valLivro.setEditable(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -254,21 +235,19 @@ int disp = 0;
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 706, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
+                                .addComponent(valLiv)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(campoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(valLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
+                                .addComponent(subLiv)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(campoSub, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(subLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCalcular)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnCalcular1)))
+                        .addComponent(calcTotal)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -280,17 +259,15 @@ int disp = 0;
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(campoSub))
+                            .addComponent(subLiv)
+                            .addComponent(subLivro))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(campoTotal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(valLiv)
+                            .addComponent(valLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnCalcular)
-                            .addComponent(btnCalcular1))
+                        .addComponent(calcTotal)
                         .addContainerGap())))
         );
 
@@ -305,34 +282,30 @@ int disp = 0;
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(175, 175, 175))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(105, 105, 105)
-                                .addComponent(AddBook)
-                                .addGap(9, 9, 9)))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(titulo)
+                                .addGap(46, 46, 46)
+                                .addComponent(adcLivro)
+                                .addGap(13, 13, 13)))
+                        .addGap(9, 9, 9)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 33, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(AddBook, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(25, 25, 25)))
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(adcLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(titulo))
+                .addGap(21, 21, 21)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15))
+                .addContainerGap())
         );
 
         jPanel1.getAccessibleContext().setAccessibleName("Detalhes dos livros");
@@ -342,7 +315,7 @@ int disp = 0;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComprarActionPerformed
+    private void compLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_compLivroActionPerformed
         int s = tabla.getSelectedRow();
 
         if(s==-1)
@@ -364,20 +337,42 @@ int disp = 0;
             fila[2] = cantidad;
             dadosEmpr.addRow(fila);
         }
-    }//GEN-LAST:event_ComprarActionPerformed
-
-    private void BorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrarActionPerformed
+    }//GEN-LAST:event_compLivroActionPerformed
+ private int busCarrinho(int s) {
+        String ISBN = (String) dadosComp.getValueAt(s, 0);
+        String Titulo = (String) dadosComp.getValueAt(s, 1);
+        
+        for(int i=0; i< dadosEmpr.getRowCount(); ++i) {
+            @SuppressWarnings("UseOfObsoleteCollectionType")
+            Vector v = (Vector) dadosEmpr.getDataVector().get(i);
+            if(v.get(0).equals(ISBN) && v.get(1).equals(Titulo))
+                return i;
+        }
+        return -1;        
+    }
+private boolean existeLivro(String ID, String Titulo) {
+        Iterator it = dadosComp.getDataVector().iterator();
+        while(it.hasNext()) {
+            @SuppressWarnings("UseOfObsoleteCollectionType")
+            Vector v = (Vector) it.next();
+            if(v.get(0).equals(ID) && v.get(1).equals(Titulo))
+                return true;
+        }
+        return false;
+    }
+    
+    private void cancLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancLivroActionPerformed
         int s = tabla.getSelectedRow();
         if(s==-1)
         JOptionPane.showMessageDialog(this,"Por favor seleccione una fila.");
         else dadosComp.removeRow(s);
-    }//GEN-LAST:event_BorrarActionPerformed
+    }//GEN-LAST:event_cancLivroActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void exbLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exbLivroActionPerformed
         db();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_exbLivroActionPerformed
 
-    private void AddBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddBookActionPerformed
+    private void adcLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adcLivroActionPerformed
         String ID = JOptionPane.showInputDialog("Digite o ID do livro: ");
         String Titulo = JOptionPane.showInputDialog("Digite o título do livro: ");
         String Autor = JOptionPane.showInputDialog("Digite autor do livro: ");
@@ -391,19 +386,18 @@ int disp = 0;
             String Datos[] = {ID, Titulo, Autor, Preco};
             dadosComp.addRow(Datos);
         }
-    }//GEN-LAST:event_AddBookActionPerformed
+    }//GEN-LAST:event_adcLivroActionPerformed
 
-    private void btnCalcular1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcular1ActionPerformed
-
-        dispose();
-    }//GEN-LAST:event_btnCalcular1ActionPerformed
-
-    private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
-        double precio = 0;
+    private void calcTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcTotalActionPerformed
+        double preco = 0;
         for(int i=0; i<dadosEmpr.getRowCount(); ++i)
-        precio += Double.parseDouble((String) dadosEmpr.getValueAt(i, 2) ) * Double.parseDouble((String) dadosEmpr.getValueAt(i, 3) );
-        campoTotal.setText(precio+"");
-    }//GEN-LAST:event_btnCalcularActionPerformed
+        preco += Double.parseDouble((String) dadosEmpr.getValueAt(i, 2) ) * Double.parseDouble((String) dadosEmpr.getValueAt(i, 3) );
+        valLivro.setText(preco+"");
+    }//GEN-LAST:event_calcTotalActionPerformed
+
+    private void subLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subLivroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_subLivroActionPerformed
 
     /**
      * @param args the command line arguments
@@ -441,23 +435,22 @@ int disp = 0;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AddBook;
-    private javax.swing.JButton Borrar;
-    private javax.swing.JButton Comprar;
     private javax.swing.JTable Tabla2;
-    private javax.swing.JButton btnCalcular;
-    private javax.swing.JButton btnCalcular1;
-    private javax.swing.JTextField campoSub;
-    private javax.swing.JTextField campoTotal;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JButton adcLivro;
+    private javax.swing.JButton calcTotal;
+    private javax.swing.JButton cancLivro;
+    private javax.swing.JButton compLivro;
+    private javax.swing.JLabel data;
+    private javax.swing.JButton exbLivro;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel subLiv;
+    private javax.swing.JTextField subLivro;
     private javax.swing.JTable tabla;
+    private javax.swing.JLabel titulo;
+    private javax.swing.JLabel valLiv;
+    private javax.swing.JTextField valLivro;
     // End of variables declaration//GEN-END:variables
 }
