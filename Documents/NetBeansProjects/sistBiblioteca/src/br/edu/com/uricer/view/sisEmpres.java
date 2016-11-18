@@ -5,10 +5,9 @@
  */
 package br.edu.com.uricer.view;
 
+
 import br.edu.com.uricer.dao.LivrosDAO;
 import br.edu.com.uricer.model.Livro;
-import static java.awt.Frame.MAXIMIZED_BOTH;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Date;
@@ -16,8 +15,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JOptionPane;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -29,8 +26,6 @@ private final DefaultTableModel  dadosComp, dadosEmpr;
 private final String[][] Dados;
 private final String[] Info1 = {"ID", "Título","Autor", "Estado"};
 private final String[] Info2;
-private GregorianCalendar gc;
-private Date dataParaManipular;
 int disp = 0;
 
     public sisEmpres() {
@@ -39,14 +34,13 @@ int disp = 0;
         
         initComponents();
         
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-            this.gc = new GregorianCalendar();
-            Date dataEntr = new Date();
-            this.gc.setTime(dataEntr);
-            this.dataParaManipular = dataEntr;
-           
-            //dataEntr.Date(7, Calendar.DAY_OF_MONTH);
-
+        Date hoje = new Date();
+        Calendar cal = new GregorianCalendar();
+        cal.setTime(hoje);
+        
+        cal.add(Calendar.DAY_OF_MONTH, 7);
+        hoje = cal.getTime();
+        
         dadosComp = new DefaultTableModel(Dados, Info1);
         selTabela1.setModel(dadosComp);
         
@@ -60,15 +54,16 @@ int disp = 0;
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         selTabela1 = new javax.swing.JTable();
-        Comprar = new javax.swing.JButton();
-        Borrar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        emprLivro = new javax.swing.JButton();
+        cancLivro = new javax.swing.JButton();
+        exbLivros = new javax.swing.JButton();
+        data = new javax.swing.JLabel();
         adcLivro = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         selTabela2 = new javax.swing.JTable();
         dataNome = new javax.swing.JLabel();
-        dataEntr = new javax.swing.JTextField();
+        hoje = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -98,27 +93,27 @@ int disp = 0;
         });
         jScrollPane1.setViewportView(selTabela1);
 
-        Comprar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        Comprar.setText("Emprestar");
-        Comprar.addActionListener(new java.awt.event.ActionListener() {
+        emprLivro.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        emprLivro.setText("Emprestar");
+        emprLivro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComprarActionPerformed(evt);
+                emprLivroActionPerformed(evt);
             }
         });
 
-        Borrar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        Borrar.setText("Cancelar");
-        Borrar.addActionListener(new java.awt.event.ActionListener() {
+        cancLivro.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        cancLivro.setText("Cancelar");
+        cancLivro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BorrarActionPerformed(evt);
+                cancLivroActionPerformed(evt);
             }
         });
 
-        jButton1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jButton1.setText("Exibir livros");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        exbLivros.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        exbLivros.setText("Exibir livros");
+        exbLivros.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                exbLivrosActionPerformed(evt);
             }
         });
 
@@ -130,13 +125,18 @@ int disp = 0;
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(Borrar)
+                        .addComponent(cancLivro)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Comprar)
+                        .addComponent(emprLivro)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(exbLivros))
                     .addComponent(jScrollPane1))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(224, 224, 224)
+                    .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(224, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,10 +145,15 @@ int disp = 0;
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(Borrar)
-                        .addComponent(Comprar))
-                    .addComponent(jButton1))
+                        .addComponent(cancLivro)
+                        .addComponent(emprLivro))
+                    .addComponent(exbLivros))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGap(117, 117, 117)
+                    .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(117, Short.MAX_VALUE)))
         );
 
         adcLivro.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
@@ -186,6 +191,12 @@ int disp = 0;
 
         dataNome.setText("Data");
 
+        hoje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hojeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -197,7 +208,7 @@ int disp = 0;
                         .addGap(6, 6, 6)
                         .addComponent(dataNome)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dataEntr, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(hoje, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE))
                 .addContainerGap())
@@ -210,7 +221,7 @@ int disp = 0;
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dataNome)
-                    .addComponent(dataEntr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(hoje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(7, 7, 7))
         );
 
@@ -293,18 +304,18 @@ int disp = 0;
         }
         return false;
     }
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void exbLivrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exbLivrosActionPerformed
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_exbLivrosActionPerformed
 
-    private void BorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrarActionPerformed
+    private void cancLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancLivroActionPerformed
         int s = selTabela1.getSelectedRow();
         if(s==-1)
         JOptionPane.showMessageDialog(this,"Por favor selecione una fila.");
         else dadosComp.removeRow(s);
-    }//GEN-LAST:event_BorrarActionPerformed
+    }//GEN-LAST:event_cancLivroActionPerformed
 
-    private void ComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComprarActionPerformed
+    private void emprLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emprLivroActionPerformed
         int s = selTabela1.getSelectedRow();
 
         String dispond = (String) selTabela1.getValueAt(s, 3);
@@ -324,7 +335,7 @@ int disp = 0;
                     return;
                 }
                 String codigo = JOptionPane.showInputDialog("Digite o código do estudante: ");
-                String data = dataEntr.getText();
+                String data = hoje.getText();
                 Object fila [] = new Object[dadosEmpr.getColumnCount()];
                 fila[0] = codigo;
                 fila[1] = dadosComp.getValueAt(s, 0); // ID.
@@ -341,7 +352,11 @@ int disp = 0;
         else{
             JOptionPane.showMessageDialog(this, "Livro não disponível");
         }
-    }//GEN-LAST:event_ComprarActionPerformed
+    }//GEN-LAST:event_emprLivroActionPerformed
+
+    private void hojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hojeActionPerformed
+         hoje.setText("");
+    }//GEN-LAST:event_hojeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -379,12 +394,13 @@ int disp = 0;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Borrar;
-    private javax.swing.JButton Comprar;
     private javax.swing.JButton adcLivro;
-    private javax.swing.JTextField dataEntr;
+    private javax.swing.JButton cancLivro;
+    private javax.swing.JLabel data;
     private javax.swing.JLabel dataNome;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton emprLivro;
+    private javax.swing.JButton exbLivros;
+    private javax.swing.JTextField hoje;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

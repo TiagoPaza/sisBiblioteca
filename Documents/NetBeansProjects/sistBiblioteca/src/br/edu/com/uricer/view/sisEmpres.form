@@ -87,15 +87,22 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
-                          <Component id="Borrar" min="-2" max="-2" attributes="0"/>
+                          <Component id="cancLivro" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="Comprar" min="-2" max="-2" attributes="0"/>
+                          <Component id="emprLivro" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
-                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          <Component id="exbLivros" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane1" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
+              </Group>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="224" max="-2" attributes="0"/>
+                      <Component id="data" min="-2" pref="87" max="-2" attributes="0"/>
+                      <EmptySpace pref="224" max="32767" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -106,12 +113,19 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                          <Component id="Borrar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="Comprar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="cancLivro" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="emprLivro" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jButton1" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="exbLivros" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
+              </Group>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="117" max="-2" attributes="0"/>
+                      <Component id="data" min="-2" pref="31" max="-2" attributes="0"/>
+                      <EmptySpace pref="117" max="32767" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -174,7 +188,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="Comprar">
+        <Component class="javax.swing.JButton" name="emprLivro">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="14" style="0"/>
@@ -182,10 +196,10 @@
             <Property name="text" type="java.lang.String" value="Emprestar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ComprarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="emprLivroActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="Borrar">
+        <Component class="javax.swing.JButton" name="cancLivro">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="14" style="0"/>
@@ -193,10 +207,10 @@
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BorrarActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancLivroActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="exbLivros">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="14" style="0"/>
@@ -204,8 +218,10 @@
             <Property name="text" type="java.lang.String" value="Exibir livros"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exbLivrosActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="data">
         </Component>
       </SubComponents>
     </Container>
@@ -245,7 +261,7 @@
                           <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                           <Component id="dataNome" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="dataEntr" min="-2" pref="79" max="-2" attributes="0"/>
+                          <Component id="hoje" min="-2" pref="79" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Component id="jScrollPane2" pref="523" max="32767" attributes="0"/>
@@ -262,7 +278,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="dataNome" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="dataEntr" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="hoje" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
               </Group>
@@ -326,7 +342,10 @@
             <Property name="text" type="java.lang.String" value="Data"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="dataEntr">
+        <Component class="javax.swing.JTextField" name="hoje">
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="hojeActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

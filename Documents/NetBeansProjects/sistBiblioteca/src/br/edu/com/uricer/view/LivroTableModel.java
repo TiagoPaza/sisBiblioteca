@@ -21,7 +21,7 @@ public class LivroTableModel extends AbstractTableModel {
         this.livros = livros;
     }
 
-    public void setPessoas(List<Livro> pessoas) {
+    public void setLivro(List<Livro> pessoas) {
         this.livros = livros;
     }
 

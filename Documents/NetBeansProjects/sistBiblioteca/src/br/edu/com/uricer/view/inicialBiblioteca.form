@@ -39,8 +39,8 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" attributes="0">
-              <EmptySpace min="129" pref="129" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace pref="129" max="32767" attributes="0"/>
               <Component id="compLivro" min="-2" pref="40" max="-2" attributes="0"/>
               <EmptySpace min="18" pref="18" max="-2" attributes="0"/>
               <Component id="empLivro" min="-2" pref="40" max="-2" attributes="0"/>

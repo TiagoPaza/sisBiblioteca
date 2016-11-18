@@ -21,12 +21,12 @@ import javax.swing.table.DefaultTableModel;
 public class sisCompra extends javax.swing.JFrame {
 private final DefaultTableModel  dadosComp, dadosEmpr;
 private final String[][] Dados = {};
-private final String[] Info1 = {"ID", "Título","Autor", "Estado"};
+private final String[] Info1 = {"ID", "Título","Autor", "Preço"};
 private final String[] Info2;
 int disp = 0;
 
     public sisCompra() {
-        this.Info2 = new String[]{"Código Estudante", "ID", "Título", "Data de Entrega"};
+        this.Info2 = new String[]{"ID", "Título", "Quantidade", "Preço"};
         initComponents();
         subLivro.setVisible(false);
         setExtendedState(MAXIMIZED_BOTH);
@@ -49,19 +49,14 @@ int disp = 0;
                 double sub = 0;
                 for(int i : Tabla2.getSelectedRows())
                     sub += Double.parseDouble((String) dadosEmpr.getValueAt(i, 2) ) * Double.parseDouble((String) dadosEmpr.getValueAt(i, 3) );
-                subLivro.setText(sub+"");
+                valLivro.setText(sub+"");
             }
+            
         });
     }
 
     public void db(){
-        
-        String aID = "1";
-        String aTitulo = "Harry Potter e a Pedra Filosofal";
-        String aAutor = "J.K Rowling";
-        String aPreco = "58,90";
-        String aDados[] = {aID, aTitulo, aAutor, aPreco};
-        dadosComp.addRow(aDados);
+
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -79,10 +74,10 @@ int disp = 0;
         jScrollPane2 = new javax.swing.JScrollPane();
         Tabla2 = new javax.swing.JTable();
         subLiv = new javax.swing.JLabel();
-        subLivro = new javax.swing.JTextField();
         calcTotal = new javax.swing.JButton();
         valLiv = new javax.swing.JLabel();
         valLivro = new javax.swing.JTextField();
+        subLivro = new javax.swing.JTextField();
         data = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -208,13 +203,6 @@ int disp = 0;
         subLiv.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         subLiv.setText("SubTotal do livro:");
 
-        subLivro.setEditable(false);
-        subLivro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                subLivroActionPerformed(evt);
-            }
-        });
-
         calcTotal.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         calcTotal.setText("Calcular total");
         calcTotal.addActionListener(new java.awt.event.ActionListener() {
@@ -227,6 +215,17 @@ int disp = 0;
         valLiv.setText("Valor dos livros:");
 
         valLivro.setEditable(false);
+        valLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                valLivroActionPerformed(evt);
+            }
+        });
+
+        subLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                subLivroActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -240,12 +239,12 @@ int disp = 0;
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(valLiv)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(15, 15, 15)
                                 .addComponent(valLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                 .addComponent(subLiv)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(subLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(subLivro)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(calcTotal)))
                 .addContainerGap())
@@ -260,7 +259,7 @@ int disp = 0;
                         .addGap(21, 21, 21)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(subLiv)
-                            .addComponent(subLivro))
+                            .addComponent(subLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(valLiv)
@@ -298,7 +297,7 @@ int disp = 0;
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(data, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(adcLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(titulo))
                 .addGap(21, 21, 21)
@@ -396,8 +395,12 @@ private boolean existeLivro(String ID, String Titulo) {
     }//GEN-LAST:event_calcTotalActionPerformed
 
     private void subLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subLivroActionPerformed
-        // TODO add your handling code here:
+         subLivro.setText("");
     }//GEN-LAST:event_subLivroActionPerformed
+
+    private void valLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valLivroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_valLivroActionPerformed
 
     /**
      * @param args the command line arguments
