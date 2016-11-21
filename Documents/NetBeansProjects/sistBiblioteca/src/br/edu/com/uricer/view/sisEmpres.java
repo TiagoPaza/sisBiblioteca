@@ -15,6 +15,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,13 +29,15 @@ private final String[] Info1 = {"ID", "Título","Autor", "Estado"};
 private final String[] Info2;
 int disp = 0;
 
+private Date hoje = null;
+
     public sisEmpres() {
         this.Info2 = new String[]{"Código Estudante", "ID", "Título", "Data de Entrega"};
         this.Dados = new String[][]{};
         
         initComponents();
         
-        Date hoje = new Date();
+        hoje = new Date();
         Calendar cal = new GregorianCalendar();
         cal.setTime(hoje);
         
@@ -62,8 +65,6 @@ int disp = 0;
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         selTabela2 = new javax.swing.JTable();
-        dataNome = new javax.swing.JLabel();
-        hoje = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -74,17 +75,17 @@ int disp = 0;
         selTabela1.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         selTabela1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Título", "Autor", "Estado", "Preço"
+                "ID", "Título", "Autor", "Estado"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -176,7 +177,7 @@ int disp = 0;
                 {null, null, null, null}
             },
             new String [] {
-                "Cód. Compra", "ID", "Título", "Valor unitário"
+                "Cód. Compra", "ID", "Título", "Data da entrega"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -189,28 +190,13 @@ int disp = 0;
         });
         jScrollPane2.setViewportView(selTabela2);
 
-        dataNome.setText("Data");
-
-        hoje.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                hojeActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(dataNome)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(hoje, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -218,11 +204,7 @@ int disp = 0;
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dataNome)
-                    .addComponent(hoje, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7))
+                .addGap(35, 35, 35))
         );
 
         jLabel3.setFont(new java.awt.Font("Capture Smallz", 0, 48)); // NOI18N
@@ -233,15 +215,16 @@ int disp = 0;
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(adcLivro))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(adcLivro)
+                .addGap(14, 14, 14))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
@@ -251,9 +234,9 @@ int disp = 0;
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(29, 29, 29)
+                .addGap(31, 31, 31)
                 .addComponent(adcLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -328,18 +311,17 @@ int disp = 0;
             else{
                 int pos = busCarrinho(s);
                 if( pos != -1 ) {
-                    String cantidad = JOptionPane.showInputDialog("Livro adquirido. Digite a quantidade que deseja realizar o empréstimo: ");
-                    if(cantidad.equals("0"))
+                    String quantid = JOptionPane.showInputDialog("Livro adquirido. Digite a quantidade que deseja realizar o empréstimo: ");
+                    if(quantid.equals("0"))
                     dadosEmpr.removeRow(pos);
-                    else dadosEmpr.setValueAt(cantidad, pos, 2);
+                    else dadosEmpr.setValueAt(quantid, pos, 2);
                     return;
                 }
                 String codigo = JOptionPane.showInputDialog("Digite o código do estudante: ");
-                String data = hoje.getText();
                 Object fila [] = new Object[dadosEmpr.getColumnCount()];
                 fila[0] = codigo;
                 fila[1] = dadosComp.getValueAt(s, 0); // ID.
-                fila[3] = data;
+                fila[3] = hoje.toString();
                 fila[2] = dadosComp.getValueAt(s, 1);//titulo
                 dadosEmpr.addRow(fila);
 
@@ -353,10 +335,6 @@ int disp = 0;
             JOptionPane.showMessageDialog(this, "Livro não disponível");
         }
     }//GEN-LAST:event_emprLivroActionPerformed
-
-    private void hojeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hojeActionPerformed
-         hoje.setText("");
-    }//GEN-LAST:event_hojeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -397,10 +375,8 @@ int disp = 0;
     private javax.swing.JButton adcLivro;
     private javax.swing.JButton cancLivro;
     private javax.swing.JLabel data;
-    private javax.swing.JLabel dataNome;
     private javax.swing.JButton emprLivro;
     private javax.swing.JButton exbLivros;
-    private javax.swing.JTextField hoje;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

@@ -90,17 +90,17 @@ int disp = 0;
         tabla.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Título", "Autor", "Preço", "Disponibilidade"
+                "ID", "Título", "Autor", "Preço"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, true
+                false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -328,12 +328,12 @@ int disp = 0;
                 else dadosEmpr.setValueAt(cantidad, pos, 2);
                 return;
             }
-            String cantidad = JOptionPane.showInputDialog("Especifique a quantidade de livros: ");
+            String quant = JOptionPane.showInputDialog("Especifique a quantidade de livros: ");
             Object fila [] = new Object[dadosEmpr.getColumnCount()];
             fila[0] = dadosComp.getValueAt(s, 0); // ID
             fila[1] = dadosComp.getValueAt(s, 1); // Título
             fila[3] = dadosComp.getValueAt(s, 3); // Preço unitario.
-            fila[2] = cantidad;
+            fila[2] = quant;
             dadosEmpr.addRow(fila);
         }
     }//GEN-LAST:event_compLivroActionPerformed
