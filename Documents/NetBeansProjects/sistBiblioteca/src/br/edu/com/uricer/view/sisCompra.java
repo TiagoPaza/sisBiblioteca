@@ -73,7 +73,6 @@ int disp = 0;
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         Tabla2 = new javax.swing.JTable();
-        subLiv = new javax.swing.JLabel();
         calcTotal = new javax.swing.JButton();
         valLiv = new javax.swing.JLabel();
         valLivro = new javax.swing.JTextField();
@@ -81,10 +80,12 @@ int disp = 0;
         data = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(76, 76, 76));
 
         jPanel1.setBackground(new java.awt.Color(198, 198, 198));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Detalhes do livro", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 18), new java.awt.Color(51, 51, 51))); // NOI18N
         jPanel1.setForeground(new java.awt.Color(198, 198, 198));
+        jPanel1.setToolTipText("");
         jPanel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
 
         tabla.setFont(new java.awt.Font("Tahoma", 0, 16)); // NOI18N
@@ -200,9 +201,6 @@ int disp = 0;
         });
         jScrollPane2.setViewportView(Tabla2);
 
-        subLiv.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        subLiv.setText("SubTotal do livro:");
-
         calcTotal.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         calcTotal.setText("Calcular total");
         calcTotal.addActionListener(new java.awt.event.ActionListener() {
@@ -242,8 +240,7 @@ int disp = 0;
                                 .addGap(15, 15, 15)
                                 .addComponent(valLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(subLiv)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(117, 117, 117)
                                 .addComponent(subLivro)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(calcTotal)))
@@ -257,9 +254,7 @@ int disp = 0;
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(subLiv)
-                            .addComponent(subLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(subLivro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(valLiv)
@@ -395,7 +390,7 @@ private boolean existeLivro(String ID, String Titulo) {
     }//GEN-LAST:event_calcTotalActionPerformed
 
     private void subLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_subLivroActionPerformed
-         subLivro.setText("");
+        subLivro.setText("");
     }//GEN-LAST:event_subLivroActionPerformed
 
     private void valLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valLivroActionPerformed
@@ -449,7 +444,6 @@ private boolean existeLivro(String ID, String Titulo) {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel subLiv;
     private javax.swing.JTextField subLivro;
     private javax.swing.JTable tabla;
     private javax.swing.JLabel titulo;

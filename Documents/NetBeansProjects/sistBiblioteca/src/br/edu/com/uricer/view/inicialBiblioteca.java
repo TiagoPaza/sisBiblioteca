@@ -34,8 +34,11 @@ public class inicialBiblioteca extends javax.swing.JFrame {
         compLivro = new javax.swing.JButton();
         empLivro = new javax.swing.JButton();
         sair = new javax.swing.JButton();
+        BG = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(102, 204, 255));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         compLivro.setText("Comprar");
         compLivro.addActionListener(new java.awt.event.ActionListener() {
@@ -58,6 +61,8 @@ public class inicialBiblioteca extends javax.swing.JFrame {
             }
         });
 
+        BG.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/edu/com/uricer/view/BG.jpg"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -71,6 +76,11 @@ public class inicialBiblioteca extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(486, 486, 486)
                 .addComponent(sair))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(BG)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -81,6 +91,11 @@ public class inicialBiblioteca extends javax.swing.JFrame {
                 .addComponent(empLivro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(95, 95, 95)
                 .addComponent(sair))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addComponent(BG)
+                    .addGap(0, 0, Short.MAX_VALUE)))
         );
 
         pack();
@@ -135,6 +150,7 @@ public class inicialBiblioteca extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BG;
     private javax.swing.JButton compLivro;
     private javax.swing.JButton empLivro;
     private javax.swing.JButton sair;
